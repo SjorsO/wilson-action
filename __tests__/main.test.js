@@ -1,5 +1,5 @@
 /**
- * Unit tests for the action's main functionality, src/main.ts
+ * Unit tests for the action's main functionality, src/main.js
  *
  * To mock dependencies in ESM, you can create fixtures that export mock
  * functions and objects. For example, the core module is mocked in this test,
@@ -17,7 +17,7 @@ jest.unstable_mockModule('../src/wait.js', () => ({ wait }))
 // mocks are used in place of any actual dependencies.
 const { run } = await import('../src/main.js')
 
-describe('main.ts', () => {
+describe('main.js', () => {
   beforeEach(() => {
     // Set the action's inputs as return values from core.getInput().
     core.getInput.mockImplementation(() => '500')

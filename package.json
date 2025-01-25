@@ -1,17 +1,17 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "javascript-action",
+  "description": "GitHub Actions JavaScript Template",
   "version": "0.0.0",
   "author": "",
   "type": "module",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/actions/javascript-action#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/actions/javascript-action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/actions/javascript-action/issues"
   },
   "keywords": [
     "actions"
@@ -29,30 +29,26 @@
     "format:write": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "lint": "npx eslint .",
-    "local-action": "npx local-action . src/main.ts .env",
-    "package": "npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "local-action": "npx local-action . src/main.js .env",
+    "package": "npx rollup --config rollup.config.js",
     "package:watch": "npm run package -- --watch",
     "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^1.11.1",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@github/local-action": "^2.5.1",
     "@jest/globals": "^29.7.0",
-    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-typescript": "^12.1.1",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^20.17.14",
-    "@typescript-eslint/eslint-plugin": "^8.21.0",
-    "@typescript-eslint/parser": "^8.21.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
-    "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-prettier": "^5.2.3",
@@ -60,11 +56,7 @@
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.4.2",
     "prettier-eslint": "^16.3.0",
-    "rollup": "^4.31.0",
-    "ts-jest": "^29.2.5",
-    "ts-jest-resolver": "^2.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "rollup": "^4.31.0"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "*"

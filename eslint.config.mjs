@@ -3,8 +3,6 @@
 import { fixupPluginRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
 import _import from 'eslint-plugin-import'
 import jest from 'eslint-plugin-jest'
 import prettier from 'eslint-plugin-prettier'
@@ -26,8 +24,6 @@ export default [
   },
   ...compat.extends(
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:jest/recommended',
     'plugin:prettier/recommended'
   ),
@@ -35,8 +31,7 @@ export default [
     plugins: {
       import: fixupPluginRules(_import),
       jest,
-      prettier,
-      '@typescript-eslint': typescriptEslint
+      prettier
     },
 
     languageOptions: {
@@ -47,23 +42,8 @@ export default [
         SharedArrayBuffer: 'readonly'
       },
 
-      parser: tsParser,
       ecmaVersion: 2023,
-      sourceType: 'module',
-
-      parserOptions: {
-        project: ['tsconfig.eslint.json'],
-        tsconfigRootDir: '.'
-      }
-    },
-
-    settings: {
-      'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-          project: 'tsconfig.eslint.json'
-        }
-      }
+      sourceType: 'module'
     },
 
     rules: {
