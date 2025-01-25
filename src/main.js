@@ -1,13 +1,19 @@
 import * as core from '@actions/core'
 import fs from 'fs'
 import request from 'request'
+const os = require('os')
+const path = require('path')
 
 export async function run() {
   try {
     let wilsonUrl = core.getInput('url')
     const apiKey = core.getInput('api_key')
     const wilsonFileFileName = core.getInput('config')
-    const bundleFilePath = core.getInput('bundle')
+    let bundleFilePath = core.getInput('bundle')
+
+    if (bundleFilePath.startsWith('~')) {
+      bundleFilePath = path.join(os.homedir(), bundleFilePath.slice(1))
+    }
 
     if (!fs.existsSync(bundleFilePath)) {
       core.setFailed(`Bundle file does not exist at [${bundleFilePath}]`)

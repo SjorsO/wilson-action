@@ -71602,12 +71602,19 @@ function requireRequest () {
 var requestExports = requireRequest();
 var request = /*@__PURE__*/getDefaultExportFromCjs(requestExports);
 
+const os = require('os');
+const path = require('path');
+
 async function run() {
   try {
     let wilsonUrl = coreExports.getInput('url');
     const apiKey = coreExports.getInput('api_key');
     const wilsonFileFileName = coreExports.getInput('config');
-    const bundleFilePath = coreExports.getInput('bundle');
+    let bundleFilePath = coreExports.getInput('bundle');
+
+    if (bundleFilePath.startsWith('~')) {
+      bundleFilePath = path.join(os.homedir(), bundleFilePath.slice(1));
+    }
 
     if (!require$$1$1.existsSync(bundleFilePath)) {
       coreExports.setFailed(`Bundle file does not exist at [${bundleFilePath}]`);
