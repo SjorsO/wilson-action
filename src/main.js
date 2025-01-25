@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import fs from 'fs'
 import request from 'request'
-const os = require('os')
-const path = require('path')
+import os from 'os'
+import path from 'path'
 
 export async function run() {
   try {

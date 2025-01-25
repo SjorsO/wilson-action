@@ -71602,9 +71602,6 @@ function requireRequest () {
 var requestExports = requireRequest();
 var request = /*@__PURE__*/getDefaultExportFromCjs(requestExports);
 
-const os = require('os');
-const path = require('path');
-
 async function run() {
   try {
     let wilsonUrl = coreExports.getInput('url');
@@ -71613,7 +71610,7 @@ async function run() {
     let bundleFilePath = coreExports.getInput('bundle');
 
     if (bundleFilePath.startsWith('~')) {
-      bundleFilePath = path.join(os.homedir(), bundleFilePath.slice(1));
+      bundleFilePath = require$$1$7.join(require$$0$2.homedir(), bundleFilePath.slice(1));
     }
 
     if (!require$$1$1.existsSync(bundleFilePath)) {
