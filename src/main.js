@@ -27,13 +27,12 @@ export async function run() {
 
     const form = new FormData()
 
-    form.append('file', fs.createReadStream(bundleFilePath))
+    form.append('bundle', fs.createReadStream(bundleFilePath))
+    form.append('wilsonFileFileName', wilsonFileFileName)
 
     const response = await axios.post(wilsonUrl + '/api/run', form, {
       headers: {
         'Wilson-Api-Key': apiKey,
-        'Wilson-File-Name': wilsonFileFileName,
-        'Content-Type': 'application/octet-stream',
         'Content-Disposition': 'attachment; filename="wilson-bundle.tar.gz"'
       }
     })
