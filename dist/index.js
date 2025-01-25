@@ -46261,9 +46261,10 @@ async function run() {
 
     const response = await axios.post(wilsonUrl + '/api/run', form, {
       headers: {
-        ...form.getHeaders(),
         'Wilson-Api-Key': apiKey,
-        'Wilson-File-Name': wilsonFileFileName
+        'Wilson-File-Name': wilsonFileFileName,
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': 'attachment; filename="wilson-bundle.tar.gz"'
       }
     });
 
