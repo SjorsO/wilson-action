@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import fs from 'fs'
-import request from 'request'
 import os from 'os'
 import path from 'path'
+import axios from 'axios'
 
 export async function run() {
   try {
@@ -25,29 +25,22 @@ export async function run() {
       wilsonUrl = wilsonUrl.slice(0, -1)
     }
 
-    const form = request.form()
+    const form = new FormData()
 
     form.append('file', fs.createReadStream(bundleFilePath))
 
-    request(
-      {
-        headers: {
-          'Wilson-Api-Key': apiKey,
-          'Wilson-File-Name': wilsonFileFileName
-        },
-        uri: wilsonUrl + '/api/run',
-        body: form,
-        method: 'POST'
-      },
-      function (err, res, body) {
-        const bodyValues = JSON.parse(body)
-
-        console.log(err)
-        console.log(bodyValues)
+    const response = await axios.post(wilsonUrl + '/api/run', form, {
+      headers: {
+        ...form.getHeaders(),
+        'Wilson-Api-Key': apiKey,
+        'Wilson-File-Name': wilsonFileFileName
       }
-    )
+    })
+
+    console.log(response.data)
   } catch (error) {
-    // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error.message)
+    }
   }
 }
