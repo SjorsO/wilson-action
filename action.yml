@@ -20,7 +20,7 @@ inputs:
   bundle:
     description: Application bundle file path
     required: true
-    default: './wilson-bundle.tar.gz'
+    default: '~/wilson-bundle.tar.gz'
 
 #outputs:
 #  time:
