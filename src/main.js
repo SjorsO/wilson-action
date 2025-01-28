@@ -2,7 +2,8 @@ import * as core from '@actions/core'
 import fs from 'fs'
 import os from 'os'
 import path from 'path'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
+import FormData from 'form-data'
 
 export async function run() {
   try {
@@ -26,20 +27,24 @@ export async function run() {
     }
 
     const form = new FormData()
-
     form.append('bundle', fs.createReadStream(bundleFilePath))
     form.append('wilsonFileFileName', wilsonFileFileName)
 
-    const response = await axios.post(wilsonUrl + '/api/run', form, {
+    const response = await axios.postForm(wilsonUrl + '/api/run', form, {
       headers: {
         'Wilson-Api-Key': apiKey,
-        'Content-Disposition': 'attachment; filename="wilson-bundle.tar.gz"'
+        'Content-Disposition': 'attachment; filename="wilson-bundle.tar.gz"',
+        'Content-Type': 'multipart/form-data'
       }
     })
 
     console.log(response.data)
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof AxiosError) {
+      core.setFailed(
+        `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
+      )
+    } else if (error instanceof Error) {
       core.setFailed(error.message)
     }
   }
