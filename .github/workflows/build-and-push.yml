@@ -1,0 +1,22 @@
+name: Build and Push
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  build-and-push:
+    runs-on: "ubuntu-22.04"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        commit_message: 'Build'
