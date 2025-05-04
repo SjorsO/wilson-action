@@ -43,6 +43,10 @@ export async function run() {
 
     console.log(response.data)
   } catch (error) {
+    console.log('Caught error')
+    console.log(error)
+    console.log(error.constructor.name)
+
     if (error instanceof AxiosError) {
       core.setFailed(
         `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
