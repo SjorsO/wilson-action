@@ -19,4 +19,5 @@ jobs:
 
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
-        commit_message: 'Build'
+        with:
+          commit_message: Build
