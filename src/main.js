@@ -48,7 +48,9 @@ export async function run() {
         `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
       )
     } else if (error instanceof Error) {
-      core.setFailed(error.message)
+      core.setFailed(
+        `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
+      )
     }
   }
 }
