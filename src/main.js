@@ -33,8 +33,6 @@ export async function run() {
     form.append('repository', process.env.GITHUB_REPOSITORY)
     form.append('type', type)
 
-    console.log('Making request')
-
     const response = await axios.postForm(wilsonUrl + '/api/run', form, {
       headers: {
         'Wilson-Api-Key': apiKey,
@@ -50,10 +48,12 @@ export async function run() {
     console.log(error.constructor.name)
 
     if (error instanceof AxiosError) {
+      console.log('axios error')
       core.setFailed(
         `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
       )
     } else if (error instanceof Error) {
+      console.log('normal error')
       core.setFailed(
         `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
       )
