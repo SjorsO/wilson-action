@@ -33,6 +33,8 @@ export async function run() {
     form.append('repository', process.env.GITHUB_REPOSITORY)
     form.append('type', type)
 
+    console.log('Making request')
+
     const response = await axios.postForm(wilsonUrl + '/api/run', form, {
       headers: {
         'Wilson-Api-Key': apiKey,
