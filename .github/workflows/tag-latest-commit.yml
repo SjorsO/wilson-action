@@ -1,0 +1,22 @@
+name: Tag Latest Commit
+on:
+  push:
+    branches:
+      - main
+jobs:
+  tag-latest-commit:
+    runs-on: "ubuntu-22.04"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/dev',
+              sha: context.sha
+            })
