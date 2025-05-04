@@ -9,7 +9,8 @@ export async function run() {
   try {
     let wilsonUrl = core.getInput('url')
     const apiKey = core.getInput('api_key')
-    const wilsonFileFileName = core.getInput('config')
+    const type = core.getInput('type')
+    const wilson_file_name = core.getInput('wilson_file')
     let bundleFilePath = core.getInput('bundle')
 
     if (bundleFilePath.startsWith('~')) {
@@ -28,7 +29,9 @@ export async function run() {
 
     const form = new FormData()
     form.append('bundle', fs.createReadStream(bundleFilePath))
-    form.append('wilsonFileFileName', wilsonFileFileName)
+    form.append('wilson_file_name', wilson_file_name)
+    form.append('repository', process.env.GITHUB_REPOSITORY)
+    form.append('type', type)
 
     const response = await axios.postForm(wilsonUrl + '/api/run', form, {
       headers: {

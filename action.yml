@@ -13,7 +13,10 @@ inputs:
   api_key:
     description: Your Wilson API key
     required: true
-  config:
+  type:
+    description: The type of the run (either "phpunit" or "dusk")
+    required: true
+  wilson_file:
     description: Name of your Wilson file
     required: true
     default: 'wilson'
