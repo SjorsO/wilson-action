@@ -46294,20 +46294,12 @@ async function run() {
 
     console.log(response.data);
   } catch (error) {
-    console.log('Caught error');
-    console.log(error);
-    console.log(error.constructor.name);
-
     if (error instanceof AxiosError) {
-      console.log('axios error');
       coreExports.setFailed(
         `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
       );
-    } else if (error instanceof Error) {
-      console.log('normal error');
-      coreExports.setFailed(
-        `${error.message} (${error.response?.statusText}): ${JSON.stringify(error.response?.data)}`
-      );
+    } else {
+      coreExports.setFailed(error.message);
     }
   }
 }
