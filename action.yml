@@ -16,10 +16,9 @@ inputs:
   type:
     description: The type of the run (either "phpunit" or "dusk")
     required: true
-  wilson_file:
-    description: Name of your Wilson file
+  swarm:
+    description: Name of the swarm
     required: true
-    default: 'wilson'
   bundle:
     description: Application bundle file path
     required: true
