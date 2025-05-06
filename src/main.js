@@ -10,7 +10,7 @@ export async function run() {
     let wilsonUrl = core.getInput('url')
     const apiKey = core.getInput('api_key')
     const type = core.getInput('type')
-    const wilson_file_name = core.getInput('wilson_file')
+    const swarmName = core.getInput('swarm')
     let bundleFilePath = core.getInput('bundle')
 
     if (bundleFilePath.startsWith('~')) {
@@ -29,11 +29,11 @@ export async function run() {
 
     const form = new FormData()
     form.append('bundle', fs.createReadStream(bundleFilePath))
-    form.append('wilson_file_name', wilson_file_name)
+    form.append('swarm', swarmName)
     form.append('repository', process.env.GITHUB_REPOSITORY)
     form.append('type', type)
 
-    const response = await axios.postForm(wilsonUrl + '/api/run', form, {
+    const response = await axios.postForm(`${wilsonUrl}/api/run`, form, {
       headers: {
         'Wilson-Api-Key': apiKey,
         'Content-Disposition': 'attachment; filename="wilson-bundle.tar.gz"',
