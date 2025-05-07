@@ -10,7 +10,7 @@ inputs:
   url:
     description: Url to Wilson
     required: true
-  api_key:
+  api-key:
     description: Your Wilson API key
     required: true
   type:
@@ -23,10 +23,16 @@ inputs:
     description: Application bundle file path
     required: true
     default: '~/wilson-bundle.tar.gz'
-
-#outputs:
-#  time:
-#    description: Your output description here
+  max-attempts:
+    description: Maximum number of attempts for each test
+    required: true
+    default: 1
+  env:
+    description: Values for the test runner's .env file
+    default: ''
+  php-ini:
+    description: Values for the test runner's php.ini file
+    default: ''
 
 runs:
   using: node20

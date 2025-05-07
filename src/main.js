@@ -8,10 +8,13 @@ import FormData from 'form-data'
 export async function run() {
   try {
     let wilsonUrl = core.getInput('url')
-    const apiKey = core.getInput('api_key')
+    const apiKey = core.getInput('api-key')
     const type = core.getInput('type')
     const swarmName = core.getInput('swarm')
     let bundleFilePath = core.getInput('bundle')
+    const maxAttempts = core.getInput('max-attempts')
+    const envValues = core.getInput('env')
+    const phpIniValues = core.getInput('php-ini')
 
     if (bundleFilePath.startsWith('~')) {
       bundleFilePath = path.join(os.homedir(), bundleFilePath.slice(1))
@@ -32,6 +35,9 @@ export async function run() {
     form.append('swarm', swarmName)
     form.append('repository', process.env.GITHUB_REPOSITORY)
     form.append('type', type)
+    form.append('max_attempts', maxAttempts)
+    form.append('env', envValues)
+    form.append('php_ini', phpIniValues)
 
     const response = await axios.postForm(`${wilsonUrl}/api/run`, form, {
       headers: {
