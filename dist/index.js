@@ -46259,10 +46259,13 @@ const {
 async function run() {
   try {
     let wilsonUrl = coreExports.getInput('url');
-    const apiKey = coreExports.getInput('api_key');
+    const apiKey = coreExports.getInput('api-key');
     const type = coreExports.getInput('type');
     const swarmName = coreExports.getInput('swarm');
     let bundleFilePath = coreExports.getInput('bundle');
+    const maxAttempts = coreExports.getInput('max-attempts');
+    const envValues = coreExports.getInput('env');
+    const phpIniValues = coreExports.getInput('php-ini');
 
     if (bundleFilePath.startsWith('~')) {
       bundleFilePath = require$$1$4.join(require$$0$1.homedir(), bundleFilePath.slice(1));
@@ -46283,6 +46286,9 @@ async function run() {
     form.append('swarm', swarmName);
     form.append('repository', process.env.GITHUB_REPOSITORY);
     form.append('type', type);
+    form.append('max_attempts', maxAttempts);
+    form.append('env', envValues);
+    form.append('php_ini', phpIniValues);
 
     const response = await axios.postForm(`${wilsonUrl}/api/run`, form, {
       headers: {
