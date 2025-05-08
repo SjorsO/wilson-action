@@ -47,7 +47,33 @@ export async function run() {
       }
     })
 
-    console.log(response.data)
+    const dashboardUrl = response.data.dashboard_url;
+    const statusUrl = response.data.status_url;
+
+    core.info('View details about this run: ' + dashboardUrl)
+
+    while (true) {
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+
+      const response = await axios.get(statusUrl, {
+        headers: {
+          'Wilson-Api-Key': apiKey,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (response.data.has_finished) {
+        return
+      }
+
+      if (response.data.has_failed) {
+        core.setFailed('Wilson run failed, details: ' + dashboardUrl)
+
+        return
+      }
+
+      console.log(response.data.status_text)
+    }
   } catch (error) {
     if (error instanceof AxiosError) {
       core.setFailed(
