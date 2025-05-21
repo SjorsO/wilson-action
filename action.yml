@@ -33,6 +33,9 @@ inputs:
   php-ini:
     description: Values for the test runner's php.ini file
     default: ''
+  php-executable:
+    description: The executable the workers will use to run PHP
+    default: 'php'
 
 runs:
   using: node20
