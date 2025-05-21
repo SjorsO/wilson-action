@@ -46266,6 +46266,7 @@ async function run() {
     const maxAttempts = coreExports.getInput('max-attempts');
     const envValues = coreExports.getInput('env');
     const phpIniValues = coreExports.getInput('php-ini');
+    const phpExecutable = coreExports.getInput('php-executable');
 
     if (bundleFilePath.startsWith('~')) {
       bundleFilePath = require$$1$4.join(require$$0$1.homedir(), bundleFilePath.slice(1));
@@ -46289,6 +46290,7 @@ async function run() {
     form.append('max_attempts', maxAttempts);
     form.append('env', envValues);
     form.append('php_ini', phpIniValues);
+    form.append('php_executable', phpExecutable);
 
     const response = await axios.postForm(`${wilsonUrl}/api/run`, form, {
       headers: {
