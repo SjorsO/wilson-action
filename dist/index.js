@@ -46300,6 +46300,7 @@ async function run() {
 
     const dashboardUrl = response.data.dashboard_url;
     const statusUrl = response.data.status_url;
+    let previousStatusText = '';
 
     coreExports.info('View details about this run: ' + dashboardUrl);
 
@@ -46313,6 +46314,12 @@ async function run() {
         }
       });
 
+      if (response.data.status_text !== previousStatusText) {
+        console.log(response.data.status_text);
+
+        previousStatusText = response.data.status_text;
+      }
+
       if (response.data.has_finished) {
         return
       }
@@ -46322,8 +46329,6 @@ async function run() {
 
         return
       }
-
-      console.log(response.data.status_text);
     }
   } catch (error) {
     if (error instanceof AxiosError) {
