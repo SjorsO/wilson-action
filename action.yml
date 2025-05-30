@@ -30,8 +30,8 @@ inputs:
   env:
     description: Values for the test runner's .env file
     default: ''
-  php-ini:
-    description: Values for the test runner's php.ini file
+  before-worker-tests:
+    description: Bash script to run each time before a worker runs tests
     default: ''
   php-executable:
     description: The executable the workers will use to run PHP
